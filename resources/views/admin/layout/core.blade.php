@@ -70,15 +70,24 @@
                         <span class="nav-link-text ms-1">data pengunjung</span>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link " href="/konsumens">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-app text-info text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Data Konsumen</span>
+                        <span class="nav-link-text ms-1">Layanan</span>
                     </a>
-                </li> --}}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/konsumens">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-app text-info text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Promo</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link " href="/transaksis">
                         <div
@@ -88,15 +97,15 @@
                         <span class="nav-link-text ms-1">Data Transaksi</span>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link " href="/input_datas">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-folder-17    text-danger text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Input Data</span>
+                        <span class="nav-link-text ms-1">Keuangan</span>
                     </a>
-                </li> --}}
+                </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link " href="/penjualan_details">
                         <div
@@ -107,7 +116,7 @@
                     </a>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link " href="/data/peramalan/view/data">
+                    <a class="nav-link " href="/view/predict">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-chart-bar-32 text-danger text-sm opacity-10"></i>
