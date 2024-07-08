@@ -78,6 +78,7 @@ Route::get('/grafik/{data}/{alpa}', [PeramalanController::class, 'grafik']);
 // prediksi
 Route::post('/predict', [fuzzyController::class, 'predict'])->name('predict');
 Route::get('/view/predict', [fuzzyController::class, 'view_predict'])->name('prediksi');
+Route::get('/view/himpunan', [fuzzyController::class, 'showFuzzifikasi'])->name('prediksi');
 
 
 Auth::routes();
@@ -87,5 +88,3 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return view('auth.login');
 });
-
-

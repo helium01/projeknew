@@ -15,9 +15,9 @@
                             <div class="form-group">
                                 <label for="tarif">Tarif</label>
                                 <select class="form-control" id="tarif" name="tarif">
-                                    <option value="50">Tarif Rendah</option>
+                                    <option value="150">Tarif Rendah</option>
                                     <option value="100">Tarif Sedang</option>
-                                    <option value="150">Tarif Tinggi</option>
+                                    <option value="50">Tarif Tinggi</option>
                                     <!-- Tambahkan value lainnya sesuai kebutuhan -->
                                 </select>
                             </div>
@@ -41,13 +41,13 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Predict</button>
                         </form>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    
+
 @endsection

@@ -15,46 +15,337 @@
                             <div class="card-body">
                                 <h5 class="card-title">Hasil Prediksi</h5>
                                 <p class="card-text">Jumlah pelanggan yang diprediksi berkisar: {{ $result }} Orang</p>
-                                <canvas id="fuzzyChart" width="100" height="50"></canvas>
+                                <canvas id="lineChart" width="100" height="50"></canvas>
+                                <canvas id="barChart" width="100" height="50"></canvas>
+                                <canvas id="radarChart" width="100" height="50"></canvas>
+
                             </div>
                         </div>
                         <a href="{{ route('prediksi') }}" class="btn btn-primary mt-3">Kembali ke Halaman Utama</a>
                     </div>
-                    <canvas id="fuzzyChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    
+document.addEventListener("DOMContentLoaded", function() {
+    var fuzzyData = @json($fuzzyData);
 
-    // Inisialisasi chart
-    var ctx = document.getElementById('fuzzyChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line', // Menggunakan line chart untuk menampilkan kurva
-        data: {!! json_encode($fuzzyData) !!},
+    // Line Chart
+    var ctxLine = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: fuzzyData.labels,
+            datasets: fuzzyData.datasets
+        },
         options: {
             responsive: true,
             scales: {
-                xAxes: [{
-                    scaleLabel: {
+                x: {
+                    title: {
                         display: true,
-                        labelString: 'Nilai Fuzzy'
+                        text: 'Nilai Fuzzy'
                     }
-                }],
-                yAxes: [{
-                    scaleLabel: {
+                },
+                y: {
+                    title: {
                         display: true,
-                        labelString: 'Derajat Keanggotaan'
+                        text: 'Derajat Keanggotaan'
                     },
-                    ticks: {
-                        beginAtZero: true,
-                        max: 1
+                    beginAtZero: true,
+                    max: 1
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Grafik Himpunan Fuzzy (Line Chart)'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw.toFixed(2);
+                        }
                     }
-                }]
+                }
             }
         }
     });
+
+    // Bar Chart
+    var ctxBar = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: fuzzyData.labels,
+            datasets: fuzzyData.datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Nilai Fuzzy'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Derajat Keanggotaan'
+                    },
+                    beginAtZero: true,
+                    max: 1
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Grafik Himpunan Fuzzy (Bar Chart)'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Radar Chart
+    var ctxRadar = document.getElementById('radarChart').getContext('2d');
+    var radarChart = new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+            labels: fuzzyData.labels,
+            datasets: fuzzyData.datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 1
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Grafik Himpunan Fuzzy (Radar Chart)'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('kualitasChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({
+                length: 101
+            }, (_, i) => i), // 0 to 100
+            datasets: [{
+                    label: 'Rendah',
+                    data: Array.from({
+                        length: 51
+                    }, (_, i) => (50 - i) / 50).concat(Array(50).fill(0)), // Rendah
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false
+                },
+                {
+                    label: 'Sedang',
+                    data: Array(25).fill(0).concat(Array.from({
+                        length: 26
+                    }, (_, i) => i / 25)).concat(Array.from({
+                        length: 25
+                    }, (_, i) => (25 - i) / 25)).concat(Array(25).fill(0)), // Sedang
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    fill: false
+                },
+                {
+                    label: 'Tinggi',
+                    data: Array(50).fill(0).concat(Array.from({
+                        length: 51
+                    }, (_, i) => i / 50)), // Tinggi
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Himpunan Fuzzy untuk Kualitas'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 1,
+                    title: {
+                        display: true,
+                        text: 'Derajat Keanggotaan'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Nilai Kualitas'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('promosiChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({
+                length: 101
+            }, (_, i) => i), // 0 to 100
+            datasets: [{
+                    label: 'Rendah',
+                    data: Array.from({
+                        length: 51
+                    }, (_, i) => (50 - i) / 50).concat(Array(50).fill(0)), // Rendah
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false
+                },
+                {
+                    label: 'Sedang',
+                    data: Array(25).fill(0).concat(Array.from({
+                        length: 26
+                    }, (_, i) => i / 25)).concat(Array.from({
+                        length: 25
+                    }, (_, i) => (25 - i) / 25)).concat(Array(25).fill(0)), // Sedang
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    fill: false
+                },
+                {
+                    label: 'Tinggi',
+                    data: Array(50).fill(0).concat(Array.from({
+                        length: 51
+                    }, (_, i) => i / 50)), // Tinggi
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Himpunan Fuzzy untuk Kualitas'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 1,
+                    title: {
+                        display: true,
+                        text: 'Derajat Keanggotaan'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Nilai Kualitas'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('tarifChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({
+                length: 101
+            }, (_, i) => i), // 0 to 100
+            datasets: [{
+                    label: 'Rendah',
+                    data: Array.from({
+                        length: 51
+                    }, (_, i) => (50 - i) / 50).concat(Array(50).fill(0)), // Rendah
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    fill: false
+                },
+                {
+                    label: 'Sedang',
+                    data: Array(25).fill(0).concat(Array.from({
+                        length: 26
+                    }, (_, i) => i / 25)).concat(Array.from({
+                        length: 25
+                    }, (_, i) => (25 - i) / 25)).concat(Array(25).fill(0)), // Sedang
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    fill: false
+                },
+                {
+                    label: 'Tinggi',
+                    data: Array(50).fill(0).concat(Array.from({
+                        length: 51
+                    }, (_, i) => i / 50)), // Tinggi
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Himpunan Fuzzy untuk Kualitas'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 1,
+                    title: {
+                        display: true,
+                        text: 'Derajat Keanggotaan'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Nilai Kualitas'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
 @endsection
