@@ -7,79 +7,58 @@ use Illuminate\Http\Request;
 
 class LayananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $layanans = Layanan::all();
+        return view('admin.layanan.index', compact('layanans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.layanan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'layanan' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        Layanan::create($request->all());
+
+        return redirect()->route('layanan.index')
+            ->with('success', 'Layanan created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\layanan  $layanan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(layanan $layanan)
+    public function show(Layanan $layanan)
     {
-        //
+        return view('admin.layanan.show', compact('layanan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\layanan  $layanan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(layanan $layanan)
+    public function edit(Layanan $layanan)
     {
-        //
+        return view('admin.layanan.edit', compact('layanan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\layanan  $layanan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, layanan $layanan)
+    public function update(Request $request, Layanan $layanan)
     {
-        //
+        $request->validate([
+            'layanan' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        $layanan->update($request->all());
+
+        return redirect()->route('layanan.index')
+            ->with('success', 'Layanan updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\layanan  $layanan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(layanan $layanan)
+    public function destroy(Layanan $layanan)
     {
-        //
+        $layanan->delete();
+
+        return redirect()->route('layanan.index')
+            ->with('success', 'Layanan deleted successfully.');
     }
 }

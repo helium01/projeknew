@@ -7,79 +7,58 @@ use Illuminate\Http\Request;
 
 class PromoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $promos = Promo::all();
+        return view('admin.promo.index', compact('promos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.promo.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'promosi' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        Promo::create($request->all());
+
+        return redirect()->route('promo.index')
+            ->with('success', 'Promo created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\promo  $promo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(promo $promo)
+    public function show(Promo $promo)
     {
-        //
+        return view('admin.promo.show', compact('promo'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\promo  $promo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(promo $promo)
+    public function edit(Promo $promo)
     {
-        //
+        return view('admin.promo.edit', compact('promo'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\promo  $promo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, promo $promo)
+    public function update(Request $request, Promo $promo)
     {
-        //
+        $request->validate([
+            'promosi' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        $promo->update($request->all());
+
+        return redirect()->route('promo.index')
+            ->with('success', 'Promo updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\promo  $promo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(promo $promo)
+    public function destroy(Promo $promo)
     {
-        //
+        $promo->delete();
+
+        return redirect()->route('promo.index')
+            ->with('success', 'Promo deleted successfully.');
     }
 }

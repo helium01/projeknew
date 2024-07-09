@@ -7,79 +7,60 @@ use Illuminate\Http\Request;
 
 class PengunjungController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $pengunjungs = Pengunjung::all();
+        return view('admin.pengunjung.index', compact('pengunjungs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.pengunjung.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_pengunjung' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required',
+        ]);
+
+        Pengunjung::create($request->all());
+
+        return redirect()->route('pengunjung.index')
+            ->with('success', 'Pengunjung created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\pengunjung  $pengunjung
-     * @return \Illuminate\Http\Response
-     */
-    public function show(pengunjung $pengunjung)
+    public function show(Pengunjung $pengunjung)
     {
-        //
+        return view('admin.pengunjung.show', compact('pengunjung'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\pengunjung  $pengunjung
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(pengunjung $pengunjung)
+    public function edit(Pengunjung $pengunjung)
     {
-        //
+        return view('admin.pengunjung.edit', compact('pengunjung'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\pengunjung  $pengunjung
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, pengunjung $pengunjung)
+    public function update(Request $request, Pengunjung $pengunjung)
     {
-        //
+        $request->validate([
+            'nama_pengunjung' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required',
+        ]);
+
+        $pengunjung->update($request->all());
+
+        return redirect()->route('pengunjung.index')
+            ->with('success', 'Pengunjung updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\pengunjung  $pengunjung
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(pengunjung $pengunjung)
+    public function destroy(Pengunjung $pengunjung)
     {
-        //
+        $pengunjung->delete();
+
+        return redirect()->route('pengunjung.index')
+            ->with('success', 'Pengunjung deleted successfully.');
     }
 }

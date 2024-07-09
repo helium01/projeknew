@@ -10,7 +10,7 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Saldo Kas</p>
-                                    <span class="count">{{ $jenis_mukenas->count() }}</span>
+                                    <span class="count">{{ $keuangan }}</span>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
@@ -29,7 +29,7 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Pemasukan Bulan Ini</p>
-                                    <span class="count">{{ $transaksis->count() }}</span>
+                                    <span class="count">{{ $keuangan}}</span>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
@@ -51,7 +51,7 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Data pengunjung</p>
-                                    <span class="count">{{ $jenis_mukenas->count() }}</span>
+                                    <span class="count">{{ $pengunjung }}</span>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
@@ -70,7 +70,7 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Data Transaksi</p>
-                                    <span class="count">{{ $transaksis->count() }}</span>
+                                    <span class="count">{{ $keuangan }}</span>
                                 </div>
                             </div>
                             <div class="col-4 text-end">

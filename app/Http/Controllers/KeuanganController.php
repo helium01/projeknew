@@ -7,79 +7,62 @@ use Illuminate\Http\Request;
 
 class KeuanganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $keuangans = Keuangan::all();
+        return view('admin.keuangan.index', compact('keuangans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.keuangan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'masuk' => 'required',
+            'keluar' => 'required',
+            'saldo' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        Keuangan::create($request->all());
+
+        return redirect()->route('keuangan.index')
+            ->with('success', 'Keuangan record created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\keuangan  $keuangan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(keuangan $keuangan)
+    public function show(Keuangan $keuangan)
     {
-        //
+        return view('admin.keuangan.show', compact('keuangan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\keuangan  $keuangan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(keuangan $keuangan)
+    public function edit(Keuangan $keuangan)
     {
-        //
+        return view('admin.keuangan.edit', compact('keuangan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\keuangan  $keuangan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, keuangan $keuangan)
+    public function update(Request $request, Keuangan $keuangan)
     {
-        //
+        $request->validate([
+            'masuk' => 'required',
+            'keluar' => 'required',
+            'saldo' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        $keuangan->update($request->all());
+
+        return redirect()->route('keuangan.index')
+            ->with('success', 'Keuangan record updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\keuangan  $keuangan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(keuangan $keuangan)
+    public function destroy(Keuangan $keuangan)
     {
-        //
+        $keuangan->delete();
+
+        return redirect()->route('keuangan.index')
+            ->with('success', 'Keuangan record deleted successfully.');
     }
 }

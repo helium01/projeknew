@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jenis_Mukena;
-use App\Models\Konsumen;
-use App\Models\Transaksi;
-use Illuminate\Http\Request;
+use App\Models\pengunjung;
+use App\Models\layanan;
+use App\Models\promo;
+use App\Models\keuangan;
 
 class HomeController extends Controller
 {
@@ -26,13 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $jenis_mukenas = Jenis_Mukena::all();
-        $konsumens = Konsumen::get();
-        $transaksis = Transaksi::get();
+        $pengunjungCount = Pengunjung::count();
+        $layananCount = Layanan::count();
+        $promoCount = Promo::count();
+        $keuanganCount = Keuangan::count();
         $view_data = [
-            'jenis_mukenas' => $jenis_mukenas,
-            'konsumens' => $konsumens,
-            'transaksis' => $transaksis
+            'pengunjung' => $pengunjungCount,
+            'layanan' => $layananCount,
+            'promo' => $promoCount,
+            'keuangan' => $keuanganCount,
         ];
         return view('admin.dashboard', $view_data);
     }

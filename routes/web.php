@@ -88,3 +88,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return view('auth.login');
 });
+
+use App\Http\Controllers\PengunjungController;
+
+Route::resource('admin/pengunjung', PengunjungController::class);
+use App\Http\Controllers\LayananController;
+
+Route::resource('admin/layanan', LayananController::class);
+
+use App\Http\Controllers\PromoController;
+
+Route::resource('admin/promo', PromoController::class);
+use App\Http\Controllers\KeuanganController;
+
+Route::resource('admin/keuangan', KeuanganController::class);
+
+
