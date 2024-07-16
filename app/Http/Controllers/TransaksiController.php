@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jenis_Mukena;
+use App\Models\pengunjung;
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
 use PDF;
@@ -21,8 +21,8 @@ class TransaksiController extends Controller
 
     public function create()
     {
-        $jenis_mukena = Jenis_Mukena::all();
-        return view('admin.transaksi.create', compact('jenis_mukena'));
+        $jenis_mukena = Pengunjung::all();
+        return view('admin.transaksi.create',compact('jenis_mukena'));
     }
 
     public function store(Request $request)

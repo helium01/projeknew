@@ -16,8 +16,8 @@
                         <label for="input-harga" class="form-label  ">data pengunjung</label>
                         <select class="form-select" id="input-harga" name="id_Jenis" aria-label="Default select example">
                             @foreach ($jenis_mukena as $ps)
-                                <option data-harga="{{ $ps->Harga }}" value="{{ $ps->id_Jenis }}">
-                                    {{ $ps->id_Jenis }} | Rp{{ $ps->Harga }}
+                                <option value="{{ $ps->nama_pengunjung }}">
+                                    {{ $ps->nama_pengunjung }}
                                 </option>
                             @endforeach
                         </select>
